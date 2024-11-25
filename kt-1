@@ -1,0 +1,45 @@
+package com.example.myapplication
+
+import android.os.Bundle
+import android.widget.Button
+import android.widget.EditText
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+
+class MainActivity : AppCompatActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+
+        // Referências aos elementos do layout
+        val entradaUsuario = findViewById<EditText>(R.id.entradaUsuario)
+        val entradaSenha = findViewById<EditText>(R.id.entradaSenha)
+        val botaoLogin = findViewById<Button>(R.id.botaoLogin)
+
+        // Usuários predefinidos
+        val usuarios = mapOf(
+            "usuario1" to "senha123",
+            "usuario2" to "senha456",
+            "usuario3" to "senha789"
+        )
+
+        botaoLogin.setOnClickListener {
+            val usuario = entradaUsuario.text.toString().trim()
+            val senha = entradaSenha.text.toString().trim()
+
+            if (usuario.isNotEmpty() && senha.isNotEmpty()) {
+                if (usuarios.containsKey(usuario) && usuarios[usuario] == senha) {
+                    Toast.makeText(this, "Bem-vindo, $usuario!", Toast.LENGTH_SHORT).show()
+                } else {
+                    Toast.makeText(
+                        this,
+                        "Usuário ou senha incorretos! É necessário fazer cadastro.",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            } else {
+                Toast.makeText(this, "Por favor, preencha todos os campos!", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+}
